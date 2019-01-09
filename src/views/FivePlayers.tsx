@@ -26,7 +26,7 @@ class FivePlayers extends Component<{}, State> {
     constructor(props: State) {
         super(props);
 
-        const initialPlayerNames: Array<string> = ["Tapio", "Matti", "Viljo", "Niko", "Heikki"];
+        const initialPlayerNames: Array<string> = ["Mika", "Matti", "Tapio", "Niko", "Taneli"];
         const players: Array<Player> = initialPlayerNames.map( (name: string) => this.createPlayer(name));
 
         this.state = {
