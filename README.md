@@ -29,7 +29,5 @@ This usual local development start-script is reserved for starting production bu
 
 ## TODO
 
-- Improved / simplified UI
-- Hardcoded Playerpool / Playerpool in localstorage
 - Collecting statistics from 5 player games
 - UIs for other than 5player games 
