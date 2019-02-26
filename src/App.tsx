@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import FivePlayers from "./views/FivePlayers";
+import FivePlayerGame from "./views/FivePlayerGame/FivePlayerGame";
+import {GameSetup} from "./views/GameSetup";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <FivePlayers></FivePlayers>
+        <GameSetup></GameSetup>
       </div>
     );
   }

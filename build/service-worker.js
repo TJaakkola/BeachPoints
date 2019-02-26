@@ -6,7 +6,7 @@
  * See https://goo.gl/nhQhGp
  *
  * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
+ * directly; instead, make scores to your Workbox build configuration
  * and re-run your build process.
  * See https://goo.gl/2aRDsh
  */
@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.841eb1a0d707e26b58f87feb47f49021.js"
+  "/precache-manifest.06b2da5c6ed8d92d8447ffc86e18c336.js"
 );
 
 workbox.clientsClaim();

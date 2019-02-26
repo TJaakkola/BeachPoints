@@ -1,6 +1,6 @@
 {
-  "short_name": "BeachPoints",
-  "name": "Beach Points",
+  "short_name": "React App",
+  "name": "Create React App Sample",
   "icons": [
     {
       "src": "\/android-icon-36x36.png",

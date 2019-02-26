@@ -1,5 +1,5 @@
 
-export interface PairingIndexes {
+export interface Lineup {
     blueOne: number,
     blueTwo: number,
     redOne: number,
