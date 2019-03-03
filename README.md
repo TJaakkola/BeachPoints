@@ -29,5 +29,6 @@ This usual local development start-script is reserved for starting production bu
 
 ## TODO
 
+- Use travis & Docker to build & deploy
 - Collecting statistics from 5 player games
 - UIs for other than 5player games 
