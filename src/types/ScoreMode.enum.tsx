@@ -1,2 +1,2 @@
 
-export enum ScoreMode { TWO, THREE, FOUR }
+export enum ScoreMode { TWO='TWO', THREE='THREE', FOUR='FOUR' }

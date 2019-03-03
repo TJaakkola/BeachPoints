@@ -17,7 +17,6 @@ import {Typography} from "@material-ui/core";
 import {Scorehistory} from "./Scorehistory/Scorehistory";
 import SwipeableViews from 'react-swipeable-views';
 import {Controls} from "./Controls/Controls";
-import {lineups} from "./lineups";
 import {lineupByRoundIndex} from "../../util/lineup.util";
 
 interface State {
@@ -98,17 +97,12 @@ class FivePlayerGame extends Component<Props, State> {
                             <Controls resetScore={this.resetScore}
                                       changeScoremode={this.changeScoreMode}
                                       shufflePlayers={this.shufflePlayers}
-                                      revertChange={this.revertChange}
                                       scoreMode={this.state.scoreMode} />
                         </TabContainer>
                 </SwipeableViews>
             </div>;
     }
     
-    createPlayer = (name: string): Player =>  {
-        return { name, score: 0 };
-    };
-
     addScore = (lineup: Lineup) => (roundResult: RoundResult): void => {
         const {scores, roundIndex, players}: {scores: Array<Score>, roundIndex: number, players: Array<Player>} = clone(this.state);
 

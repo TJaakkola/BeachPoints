@@ -6,6 +6,9 @@ import ListItem from "@material-ui/core/ListItem/ListItem";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon/ListItemIcon";
 import PersonIcon from "@material-ui/icons/Person";
+import {AppBar} from "@material-ui/core";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
 
 interface Props {
     togglePlayer: (player: Player) => void,
@@ -20,7 +23,14 @@ const initialPlayerNames: Array<string> = ["Tapio", "Matti", "Viljo", "Niko", "H
 const players: Array<Player> = initialPlayerNames.map( (name: string) => createPlayer(name));
 
 export const PlayerSelection = (props: Props) => <div id="player-selection">
-    <h5>Select players</h5>
+    <AppBar position="relative">
+        <Toolbar>
+            <Typography variant="h6" color="inherit" noWrap>
+                Select players
+            </Typography>
+        </Toolbar>
+    </AppBar>
+
     <List component="section">
         { players.map( (player: Player) =>
             <ListItem button

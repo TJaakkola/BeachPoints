@@ -12,6 +12,7 @@ import TableCell from "@material-ui/core/TableCell";
 import Fab from "@material-ui/core/Fab";
 import {lineupByRoundIndex} from "../../../util/lineup.util";
 import {Score} from "../../../types/Score.interface";
+import Typography from "@material-ui/core/Typography";
 
 interface Props {
     players: Array<Player>,
@@ -20,9 +21,6 @@ interface Props {
     scoreMode: ScoreMode,
     scores: Array<Score>
 }
-
-const blueLineup = (players: Array<Player>, lineup: Lineup) => <>{players[lineup.blueOne].name}<br />{players[lineup.blueTwo].name}</>;
-const redLineup = (players: Array<Player>, lineup: Lineup) => <>{players[lineup.redOne].name}<br />{players[lineup.redTwo].name}</>;
 
 const previousRound = (players: Array<Player>, lineup: Lineup, score: Score) => {
     return <TableRow>
@@ -64,6 +62,9 @@ const roundScoreModeFour = (addLineupScore: (roundResult: RoundResult) => void) 
     <Fab onClick={() => addLineupScore({blue: 0, red: 4})} className="score-button" size="small" color="secondary">0-4</Fab>
 </div>;
 
+const blueLineup = (players: Array<Player>, lineup: Lineup) => <>{players[lineup.blueOne].name}<br />{players[lineup.blueTwo].name}</>;
+const redLineup = (players: Array<Player>, lineup: Lineup) => <>{players[lineup.redOne].name}<br />{players[lineup.redTwo].name}</>;
+
 const currentRound = (players: Array<Player>, lineup: Lineup, addLineupScore: (roundResult: RoundResult) => void, scoreMode: ScoreMode) => {
     return <TableRow>
         <TableCell>{blueLineup(players, lineup)}</TableCell>
@@ -80,17 +81,20 @@ const nextRound = (players: Array<Player>, lineup: Lineup) => {
     </TableRow>;
 };
 
-export const Gameplay = (props: Props) => <Table id="gametable" className="table centered striped is-fullwidth">
-    <TableHead>
-        <TableRow>
-            <TableCell>Blue</TableCell>
-            <TableCell>Score</TableCell>
-            <TableCell>Red</TableCell>
-        </TableRow>
-    </TableHead>
-    <TableBody>
-        {props.roundIndex > 0 && previousRound(props.players, lineupByRoundIndex(props.roundIndex - 1), props.scores[props.roundIndex - 1])}
-        {currentRound(props.players, lineupByRoundIndex(props.roundIndex), props.addLineupScore, props.scoreMode)}
-        {nextRound(props.players, lineupByRoundIndex(props.roundIndex + 1))}
-    </TableBody>
-</Table>;
+export const Gameplay = (props: Props) => <>
+    <Typography align="center" variant="h4" id="gameplay-header">Gameplay</Typography>
+    <Table id="gameplay" className="table centered striped is-fullwidth">
+        <TableHead>
+            <TableRow>
+                <TableCell>Blue</TableCell>
+                <TableCell>Score</TableCell>
+                <TableCell>Red</TableCell>
+            </TableRow>
+        </TableHead>
+        <TableBody>
+            {props.roundIndex > 0 && previousRound(props.players, lineupByRoundIndex(props.roundIndex - 1), props.scores[props.roundIndex - 1])}
+            {currentRound(props.players, lineupByRoundIndex(props.roundIndex), props.addLineupScore, props.scoreMode)}
+            {nextRound(props.players, lineupByRoundIndex(props.roundIndex + 1))}
+        </TableBody>
+    </Table>
+</>;
