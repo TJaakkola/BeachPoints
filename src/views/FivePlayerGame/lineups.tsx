@@ -6,15 +6,16 @@ import {Lineup} from "../../types/Lineup.interface";
  * with everyone and get one round out of field
  */
 const lineupBase: Array<Lineup> = [
+    {blueOne: 2, blueTwo: 4, redOne: 3, redTwo: 1, out: 0},
     {blueOne: 0, blueTwo: 1, redOne: 2, redTwo: 3, out: 4},
     {blueOne: 0, blueTwo: 4, redOne: 2, redTwo: 1, out: 3},
     {blueOne: 0, blueTwo: 3, redOne: 4, redTwo: 1, out: 2},
-    {blueOne: 0, blueTwo: 2, redOne: 3, redTwo: 4, out: 1},
-    {blueOne: 2, blueTwo: 4, redOne: 3, redTwo: 1, out: 0}
+    {blueOne: 0, blueTwo: 2, redOne: 3, redTwo: 4, out: 1}
 ];
 
 const shifting = (shift: number) => (playerIndex: number) => {
-    return (playerIndex + shift) % 5;
+    // shift index by 2 so that nobody has to stay out twice in a row
+    return (playerIndex + (shift * 2)) % 5;
 };
 
 // Create a 'full round' lineups where each player will get to be on the same side 4 rounds
@@ -30,6 +31,8 @@ const lineupsByRound: Array<Array<Lineup>> =
                 out: shiftByRound(lineup.out)
             }
         }));
+
+console.log(lineupsByRound);
 
 // https://schneidenbach.gitbooks.io/typescript-cookbook/functional-programming/flattening-array-of-arrays.html
 export const lineups: Array<Lineup> = ([] as Lineup[]).concat(...lineupsByRound);
