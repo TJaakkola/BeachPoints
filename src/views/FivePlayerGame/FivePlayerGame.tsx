@@ -118,7 +118,7 @@ class FivePlayerGame extends Component<Props, State> {
 
     resetScore = (): void => {
         const players = this.state.players.map( (player: Player) => ({name: player.name, score: 0}));
-        this.setState({players, scores: []});
+        this.setState({players, scores: [], roundIndex: 0});
     };
 
     revertChange = (): void => {

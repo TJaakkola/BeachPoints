@@ -25,11 +25,14 @@ export const Scorehistory = (props: Props) => <section id="scorehistory">
             </TableRow>
         </TableHead>
         <TableBody>
-            <TableRow>
-                <TableCell></TableCell>
-                <TableCell><Fab onClick={() => props.revertChange()} className="score-button" size="small" color="primary"><i className="material-icons">replay</i></Fab></TableCell>
-                <TableCell></TableCell>
-            </TableRow>
+            { props.scores && props.scores.length > 0 &&
+                <TableRow>
+                    <TableCell></TableCell>
+                    <TableCell><Fab onClick={() => props.revertChange()} className="score-button" size="small"
+                                    color="primary"><i className="material-icons">replay</i></Fab></TableCell>
+                    <TableCell></TableCell>
+                </TableRow>
+            }
             {reverse(props.scores).map( (score: Score, index: number) =>
                 <TableRow key={index}>
                     <TableCell>{props.players[score.lineup.blueOne].name} {props.players[score.lineup.blueTwo].name}</TableCell>

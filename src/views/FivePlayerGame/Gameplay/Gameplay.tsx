@@ -25,7 +25,7 @@ interface Props {
 const previousRound = (players: Array<Player>, lineup: Lineup, score: Score) => {
     return <TableRow>
         <TableCell>{blueLineup(players, lineup)}</TableCell>
-        <TableCell>{score.roundResult.blue} - {score.roundResult.red}</TableCell>
+        <TableCell><Typography variant="title">{score.roundResult.blue} - {score.roundResult.red}</Typography></TableCell>
         <TableCell>{redLineup(players, lineup)}</TableCell>
     </TableRow>
 };
