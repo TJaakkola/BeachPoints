@@ -7,7 +7,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import {shuffle} from "../../util/shuffleArray";
 import {Gameplay} from "./Gameplay/Gameplay";
-import { Scoreboard } from "./Gameplay/Scoreboard";
+import {Scoreboard} from "./Gameplay/Scoreboard";
 import {Lineup} from "../../types/Lineup.interface";
 import {ScoreMode} from "../../types/ScoreMode.enum";
 import {Score} from "../../types/Score.interface";
@@ -18,6 +18,7 @@ import {Scorehistory} from "./Scorehistory/Scorehistory";
 import SwipeableViews from 'react-swipeable-views';
 import {Controls} from "./Controls/Controls";
 import {lineupByRoundIndex} from "../../util/lineup.util";
+import {lineups} from "./lineups";
 
 interface State {
     players: Array<Player>,
@@ -25,6 +26,7 @@ interface State {
     scores: Array<Score>,
     scoreMode: ScoreMode,
     tab: number,
+    roundCount: number
 }
 
 interface Props {
@@ -37,7 +39,7 @@ interface TabContainerProps {
 
 const TabContainer = (props: TabContainerProps) => {
     return (
-        <Typography component="div" style={{ padding: 0 }}>
+        <Typography component="div" style={{padding: 0}}>
             {props.children}
         </Typography>
     );
@@ -50,7 +52,8 @@ class FivePlayerGame extends Component<Props, State> {
         roundIndex: 0,
         scores: [],
         scoreMode: ScoreMode.TWO,
-        tab: 0
+        tab: 0,
+        roundCount: lineups.length
     };
 
     changeTab = (event: React.ChangeEvent<{}>, value: number): void => {
@@ -62,49 +65,57 @@ class FivePlayerGame extends Component<Props, State> {
     };
 
     render() {
-        const { tab }: {tab: number} = this.state;
-        
+        const {tab}: { tab: number } = this.state;
+
         return <div>
-                <AppBar position="static">
-                    <Tabs variant="fullWidth" value={tab} onChange={this.changeTab}>
-                        <Tab label="Gameplay" />
-                        <Tab label="Scorehistory" />
-                        <Tab label="Controls" />
-                    </Tabs>
-                </AppBar>
+            <AppBar position="static">
+                <Tabs variant="fullWidth" value={tab} onChange={this.changeTab}>
+                    <Tab label="Gameplay"/>
+                    <Tab label="Scorehistory"/>
+                    <Tab label="Controls"/>
+                </Tabs>
+            </AppBar>
 
-                <SwipeableViews
-                    axis={'x'}
-                    index={this.state.tab}
-                    onChangeIndex={this.changeTabIndex}>
+            <SwipeableViews
+                axis={'x'}
+                index={this.state.tab}
+                onChangeIndex={this.changeTabIndex}>
 
-                        <TabContainer>
-                            <Gameplay players={this.state.players}
-                                      roundIndex={this.state.roundIndex}
-                                      addLineupScore={this.addScore(lineupByRoundIndex(this.state.roundIndex))}
-                                      scoreMode={this.state.scoreMode}
-                                      scores={this.state.scores}/>
-                            <Scoreboard players={this.state.players} />
-                        </TabContainer>
+                <TabContainer>
+                    {this.state.roundCount > this.state.roundIndex ?
+                        <Gameplay players={this.state.players}
+                                  roundIndex={this.state.roundIndex}
+                                  addLineupScore={this.addScore(lineupByRoundIndex(this.state.roundIndex))}
+                                  scoreMode={this.state.scoreMode}
+                                  scores={this.state.scores}
+                                  roundCount={this.state.roundCount}
+                        /> :
+                        <Typography align="center" variant="h4" id="gameplay-header">Game over</Typography>
+                    }
+                    <Scoreboard players={this.state.players}
+                                scoreMode={this.state.scoreMode}
+                                roundCount={this.state.roundCount}/>
+                </TabContainer>
 
-                        <TabContainer>
-                            <Scorehistory players={this.state.players}
-                                          scores={this.state.scores}
-                                          revertChange={this.revertChange}/>
-                        </TabContainer>
+                <TabContainer>
+                    <Scorehistory players={this.state.players}
+                                  scores={this.state.scores}
+                                  revertChange={this.revertChange}/>
+                </TabContainer>
 
-                        <TabContainer>
-                            <Controls resetScore={this.resetScore}
-                                      changeScoremode={this.changeScoreMode}
-                                      shufflePlayers={this.shufflePlayers}
-                                      scoreMode={this.state.scoreMode} />
-                        </TabContainer>
-                </SwipeableViews>
-            </div>;
+                <TabContainer>
+                    <Controls resetScore={this.resetScore}
+                              changeScoremode={this.changeScoreMode}
+                              shufflePlayers={this.shufflePlayers}
+                              scoreMode={this.state.scoreMode}
+                              changeRoundCount={this.changeRoundCount}/>
+                </TabContainer>
+            </SwipeableViews>
+        </div>;
     }
-    
+
     addScore = (lineup: Lineup) => (roundResult: RoundResult): void => {
-        const {scores, roundIndex, players}: {scores: Array<Score>, roundIndex: number, players: Array<Player>} = clone(this.state);
+        const {scores, roundIndex, players}: { scores: Array<Score>, roundIndex: number, players: Array<Player> } = clone(this.state);
 
         // Push change to history
         scores.push({roundIndex: this.state.roundIndex, lineup, roundResult});
@@ -117,13 +128,13 @@ class FivePlayerGame extends Component<Props, State> {
     };
 
     resetScore = (): void => {
-        const players = this.state.players.map( (player: Player) => ({name: player.name, score: 0}));
+        const players = this.state.players.map((player: Player) => ({name: player.name, score: 0}));
         this.setState({players, scores: [], roundIndex: 0});
     };
 
     revertChange = (): void => {
-        if(this.state.scores.length >= 1) {
-            const {scores, players}: {scores: Array<Score>, players: Array<Player>} = this.state;
+        if (this.state.scores.length >= 1) {
+            const {scores, players}: { scores: Array<Score>, players: Array<Player> } = this.state;
             const lastScore: Score = clone(scores[scores.length - 1]);
             const updatedScores: Array<Score> = dropLast(1, scores);
             const updatedPlayers = revertRoundResult(players, lastScore.lineup, lastScore.roundResult);
@@ -140,11 +151,14 @@ class FivePlayerGame extends Component<Props, State> {
         this.setState({scoreMode});
     };
 
-    shufflePlayers = (): void =>  {
+    shufflePlayers = (): void => {
         const players = shuffle(this.state.players);
         this.setState({players});
     };
 
+    changeRoundCount = (value: number): void => {
+        this.setState({roundCount: value});
+    }
 }
 
 export default FivePlayerGame;

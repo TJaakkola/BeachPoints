@@ -7,12 +7,14 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import "./Controls.scss";
+import Input from "@material-ui/core/Input";
 
 interface Props {
     resetScore: () => void,
     shufflePlayers: () => void,
     changeScoremode: (scoreMode: ScoreMode) => void,
-    scoreMode: ScoreMode
+    scoreMode: ScoreMode,
+    changeRoundCount: (value: number) => void
 }
 
 export const Controls = (props: Props) => <>
@@ -35,6 +37,23 @@ export const Controls = (props: Props) => <>
                 <FormControlLabel value={ScoreMode.FOUR} control={<Radio />} label="Four" />
             </RadioGroup>
         </FormControl>
+
+        <br/>
+            <p>How many full rounds. A full round is when everyone has played once with everyone. So 5 full rounds means you play 5 times with all the other players. </p>
+            <Input
+                defaultValue={5}
+                inputProps={{
+                    'aria-label': 'How many full rounds.',
+                }}
+                type={'number'}
+                onChange={(event) => {
+                    const value: number = parseInt(event.target.value);
+                    if(value !== NaN) {
+                        props.changeRoundCount(value * 5);
+                    }
+                }}
+            />
+
 
     </div>
 </>;

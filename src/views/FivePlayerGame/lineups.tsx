@@ -32,7 +32,6 @@ const lineupsByRound: Array<Array<Lineup>> =
             }
         }));
 
-console.log(lineupsByRound);
 
 // https://schneidenbach.gitbooks.io/typescript-cookbook/functional-programming/flattening-array-of-arrays.html
 export const lineups: Array<Lineup> = ([] as Lineup[]).concat(...lineupsByRound);
