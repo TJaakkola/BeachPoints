@@ -8,6 +8,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import "./Controls.scss";
 import Input from "@material-ui/core/Input";
+import {Typography} from "@material-ui/core";
 
 interface Props {
     resetScore: () => void,
@@ -19,12 +20,12 @@ interface Props {
 
 export const Controls = (props: Props) => <>
     <div id="controls">
+        <Typography variant="h6">Basic controls</Typography>
         <Button variant='contained' color='primary' onClick={() => props.resetScore()} className="controls-button">Reset scores</Button>
         <Button variant='contained' color='primary' onClick={() => props.shufflePlayers()} className="controls-button">Shuffle players</Button>
         <br/>
-
+        <Typography variant="h6">Score mode</Typography>
         <FormControl>
-            <FormLabel>Score mode</FormLabel>
             <RadioGroup
                 row
                 name="Scoremode"
@@ -37,9 +38,8 @@ export const Controls = (props: Props) => <>
                 <FormControlLabel value={ScoreMode.FOUR} control={<Radio />} label="Four" />
             </RadioGroup>
         </FormControl>
-
         <br/>
-            <p>How many full rounds. A full round is when everyone has played once with everyone. So 5 full rounds means you play 5 times with all the other players. </p>
+        <Typography variant="h6">Round count</Typography>
             <Input
                 defaultValue={5}
                 inputProps={{
@@ -53,7 +53,12 @@ export const Controls = (props: Props) => <>
                     }
                 }}
             />
-
-
+        <Typography variant="h6">Vocabulary</Typography>
+        <ul>
+            <li><Typography variant="button" inline={true}>Score mode</Typography>: How many balls are played before changing teams (how many balls in a stage)</li>
+            <li><Typography variant="button" inline={true}>Stage</Typography>: One stage means all the balls played without changing teams. Score mode determines how many points are played during a stage</li>
+            <li><Typography variant="button" inline={true}>Round</Typography>: 5 Stages. Each player has played against each other once and had one break</li>
+            <li><Typography variant="button" inline={true}>Cycle</Typography>: 5 Rounds. After 5 rounds teams are same as in the beginning and a new cycle begins.</li>
+        </ul>
     </div>
 </>;
