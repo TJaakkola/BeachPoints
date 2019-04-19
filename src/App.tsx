@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import {GameSetup} from "./views/GameSetup";
 import CssBaseline from '@material-ui/core/CssBaseline';
 

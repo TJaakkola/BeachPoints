@@ -2,7 +2,6 @@ import React, {ChangeEvent} from "react";
 import {ScoreMode} from "../../../types/ScoreMode.enum";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
@@ -55,9 +54,9 @@ export const Controls = (props: Props) => <>
             />
         <Typography variant="h6">Vocabulary</Typography>
         <ul>
-            <li><Typography variant="button" inline={true}>Score mode</Typography>: How many balls are played before changing teams (how many balls in a stage)</li>
-            <li><Typography variant="button" inline={true}>Stage</Typography>: One stage means all the balls played without changing teams. Score mode determines how many points are played during a stage</li>
-            <li><Typography variant="button" inline={true}>Round</Typography>: 5 Stages. Each player has played against each other once and had one break</li>
+            <li><Typography variant="button" inline={true}>Score mode</Typography>: How many balls are played in a turn</li>
+            <li><Typography variant="button" inline={true}>Turn</Typography>: One turn means all the balls played without changing teams</li>
+            <li><Typography variant="button" inline={true}>Round</Typography>: 5 Turns. Each player has played against each other once and had one break</li>
             <li><Typography variant="button" inline={true}>Cycle</Typography>: 5 Rounds. After 5 rounds teams are same as in the beginning and a new cycle begins.</li>
         </ul>
     </div>

@@ -1,0 +1,16 @@
+body {
+  background-color: #eee;
+}
+
+
+.result-row {
+  border-bottom: 1px solid #BBB;
+
+  &:nth-child(2n) {
+    background-color: #f4f4f4;
+  }
+
+  .result-item {
+    text-align: center;
+  }
+}

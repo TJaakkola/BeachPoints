@@ -19,6 +19,7 @@ import SwipeableViews from 'react-swipeable-views';
 import {Controls} from "./Controls/Controls";
 import {lineupByRoundIndex} from "../../util/lineup.util";
 import {lineups} from "./lineups";
+import {GameInfo} from "./Gameplay/GameInfo";
 
 interface State {
     players: Array<Player>,
@@ -82,19 +83,24 @@ class FivePlayerGame extends Component<Props, State> {
                 onChangeIndex={this.changeTabIndex}>
 
                 <TabContainer>
-                    {this.state.roundCount > this.state.roundIndex ?
+                    {this.state.roundCount <= this.state.roundIndex && <Typography align="center" variant="h4" id="gameplay-header">Game over</Typography> }
+                    <Scoreboard players={this.state.players}
+                                scoreMode={this.state.scoreMode}
+                                roundCount={this.state.roundCount}/>
+                    {this.state.roundCount > this.state.roundIndex &&
                         <Gameplay players={this.state.players}
                                   roundIndex={this.state.roundIndex}
                                   addLineupScore={this.addScore(lineupByRoundIndex(this.state.roundIndex))}
                                   scoreMode={this.state.scoreMode}
                                   scores={this.state.scores}
                                   roundCount={this.state.roundCount}
-                        /> :
-                        <Typography align="center" variant="h4" id="gameplay-header">Game over</Typography>
+                        />
                     }
-                    <Scoreboard players={this.state.players}
-                                scoreMode={this.state.scoreMode}
-                                roundCount={this.state.roundCount}/>
+                    <GameInfo roundIndex={this.state.roundIndex}
+                                 roundCount={this.state.roundCount}
+                                 scoreMode={this.state.scoreMode}>
+                    </GameInfo>
+
                 </TabContainer>
 
                 <TabContainer>

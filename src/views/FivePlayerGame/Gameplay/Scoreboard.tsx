@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const Scoreboard = (props: Props) => <>
-    <Typography align="center" variant='h4' gutterBottom id="scoreboard-header">Scoreboard</Typography>
+    <Typography align="center" variant='h5' gutterBottom id="scoreboard-header">Scoreboard</Typography>
     <Table id="scoreboard" className="table centered striped is-fullwidth">
         <TableBody>
         {clone(props.players).sort((a: Player, b: Player) => b.score - a.score)
